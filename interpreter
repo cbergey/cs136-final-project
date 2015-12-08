@@ -52,4 +52,14 @@ def getEntropy(word,index_dict,num_par, matrix):
     m_entropy = func.reduce(entropy, row)
     return m_entropy
 
-
+def getSVD(freqMatrix):
+    a=freqMatrix
+    n=wordCount
+    m=numParas
+    U, s, V = numpy.linalg.svd(a, full_matrices=True)
+    U.shape= (n,n)
+    s.shape=(m,m)
+    V.shape=(m,))
+    S = np.zeros((n,m), dtype=complex)
+    S[:m, :m] = numpy.diag(s)
+    matrix= numpy.dot(U[0:1:1], numpy.dot(S[0:1:1], V[0:1:1]))
