@@ -1,0 +1,53 @@
+import numpy
+import nltk
+import string
+import math
+from nltk.corpus import brown
+
+paragraphs = brown.paras()
+
+wordData = dict()
+wordDict = dict()
+numParas = len(paragraphs)
+wordCount = -1
+para = 0
+
+punctuation = "\``...,;:<>/!?!@#$%^&*()~`-__=+\|}{[]\"\"\'\'"
+
+for list in paragraphs:
+    for list in list:
+        for word in list:
+            if word not in punctuation:
+                if word not in wordData:
+                    wordCount += 1
+                    wordData[word] = [0] * numParas
+                    wordData[word][para] = 1
+                else:
+                    wordData[word][para] += 1
+
+    para += 1
+    break
+
+freqMatrix = numpy.ndarray(shape = (wordCount + 1, numParas), dtype = float)
+
+i = 0
+for key	in wordData:
+    wordDict[key] = i
+    freqMatrix[i][:] = wordData[key]
+    freqMatrix[i][:] +=	1
+    #put a for loop to get the logs                                                   
+    freqMatrix[i][:] = math.log(freqMatrix[i][:], 2)
+    i += 1
+
+print(freqMatrix)
+print(wordDict)
+
+def getEntropy(word, word_dict, num_par, matrix):
+    x = index_dict[word]
+    row = matrix[x]
+    rowSum = numpy.sum(row)
+    par = math.log(num_par)
+    entropy = lambda x,y: x+((y/rowSum)*math.log(y/rowSum))/par
+    m_entropy = 1+ reduce(entropy, row)
+    return m_entropy
+
