@@ -47,8 +47,8 @@ def getEntropy(word,index_dict,num_par, matrix):
     x= index_dict[word]
     row=matrix[x]
     rowSum=numpy.sum(row)
-	par= math.log(num_par)
-	entropy= lambda x,y: x-((y/rowSum)*math.log(y/rowSum))/par
+    par= math.log(num_par)
+    entropy= lambda x,y: x-((y/rowSum)*math.log(y/rowSum))/par
     m_entropy = func.reduce(entropy, row)
     return m_entropy
 
