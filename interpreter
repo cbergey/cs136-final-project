@@ -2,6 +2,7 @@ import numpy
 import nltk
 import string
 import math
+import functools as func
 from nltk.corpus import brown
 
 paragraphs = brown.paras()
@@ -42,12 +43,13 @@ for key	in wordData:
 print(freqMatrix)
 print(wordDict)
 
-def getEntropy(word, word_dict, num_par, matrix):
-    x = index_dict[word]
-    row = matrix[x]
-    rowSum = numpy.sum(row)
-    par = math.log(num_par)
-    entropy = lambda x,y: x+((y/rowSum)*math.log(y/rowSum))/par
-    m_entropy = 1+ reduce(entropy, row)
+def getEntropy(word,index_dict,num_par, matrix):
+    x= index_dict[word]
+    row=matrix[x]
+    rowSum=numpy.sum(row)
+	par= math.log(num_par)
+	entropy= lambda x,y: x-((y/rowSum)*math.log(y/rowSum))/par
+    m_entropy = func.reduce(entropy, row)
     return m_entropy
+
 
